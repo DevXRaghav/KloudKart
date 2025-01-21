@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Plan Comparison</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Cloud Plan Comparison Results</h1>
+
+    {% if comparison_result %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Platform</th>
+                    <th>Plan</th>
+                    <th>Price</th>
+                    <th>Storage</th>
+                    <th>Features</th>
+                    <th>Choose Plan</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for platform in comparison_result %}
+                    {% for plan in platform.plans %}
+                        <tr>
+                            <td>{{ platform.platform }}</td>
+                            <td>{{ plan.name }}</td>
+                            <td>{{ plan.price }}</td>
+                            <td>{{ plan.storage }}</td>
+                            <td>{{ plan.features }}</td>
+                            <td><button class="choose-btn">Choose</button></td>
+                        </tr>
+                    {% endfor %}
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No plans were selected. Go back and select some plans.</p>
+        <a href="{{ url_for('index') }}">Go Back</a>
+    {% endif %}
+
+</body>
+</html>
